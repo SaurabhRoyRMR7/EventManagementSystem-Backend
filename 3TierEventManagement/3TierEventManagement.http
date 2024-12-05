@@ -1,0 +1,6 @@
+@_3TierEventManagement_HostAddress = http://localhost:5087
+
+GET {{_3TierEventManagement_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
