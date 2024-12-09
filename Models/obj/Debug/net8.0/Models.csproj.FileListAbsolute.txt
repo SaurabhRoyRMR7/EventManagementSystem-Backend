@@ -9,3 +9,4 @@ C:\Users\saurabh.roy\source\repos\3TierEventManagement\Models\obj\Debug\net8.0\M
 C:\Users\saurabh.roy\source\repos\3TierEventManagement\Models\obj\Debug\net8.0\refint\Models.dll
 C:\Users\saurabh.roy\source\repos\3TierEventManagement\Models\obj\Debug\net8.0\Models.pdb
 C:\Users\saurabh.roy\source\repos\3TierEventManagement\Models\obj\Debug\net8.0\ref\Models.dll
+C:\Users\saurabh.roy\source\repos\3TierEventManagement\Models\obj\Debug\net8.0\Models.sourcelink.json

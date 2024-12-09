@@ -119,7 +119,8 @@ namespace EventManagement.UserRepository
 
             // Create and return the response DTO with user info
             return new AuthenticationResponseDTO
-            {
+            { 
+                UserName = user.Name,
                 UserId = user.UserId,
                 UserRoleId = user.UserRoleId,
                 UserRole = userRole

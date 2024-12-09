@@ -11,10 +11,10 @@ namespace EventManagement.EventRepository
     {
         Task<EventDTO> CreateEventAsync(CreateEventDTO createEventDTO);
         Task<bool> DeleteEventAsync(int eventId);
-        Task<Event> GetEventByIdAsync(int eventId);
+        Task<EventDTO> GetEventByIdAsync(int eventId);
         Task<List<Event>> GetEventsAsync();
         //Task<List<Event>> GetEventsByLocationAsync(string location);
-        Task<List<Event>> GetUpcomingEventsAsync();
+        Task<List<EventDTO>> GetUpcomingEventsAsync();
         Task<List<Event>> GetEventsByOrganizerAsync(int userId);
         Task<List<Event>> GetRegisteredEventsByUserIdAsync(int userId);
         //Task<bool> EventExistsAsync(int eventId);

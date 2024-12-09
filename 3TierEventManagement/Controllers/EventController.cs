@@ -4,6 +4,7 @@ using EventManagement.EventService;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 //using EventManagement.EventRepository;
 using EventManagementAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,16 +16,20 @@ namespace _3TierEventManagement.Controllers
     {
         //private readonly IEventRepository _eventRepository;
         private readonly IEventService _eventService;
-
+        //private readonly ILogger<EventController> _logger;
         public EventController( IEventService eventService)
         {
             //_eventRepository = eventRepository;
             _eventService = eventService;
+            //_logger = logger;
         }
         // GET: api/<EventController>
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<EventDTO>> CreateEvent([FromBody] CreateEventDTO createEventDTO)
         {
+            //_logger.LogTrace("LogTrace: Entering the LogAllLevels endpoint with Trace-level logging.");
+
 
             try
             {
@@ -34,7 +39,7 @@ namespace _3TierEventManagement.Controllers
             catch (Exception ex)
             {
               
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, ex.Message);
             }
 
         }
@@ -50,7 +55,7 @@ namespace _3TierEventManagement.Controllers
 
             return Ok(eventDTO);
         }
-
+        [Authorize]
         // GET api/<EventController>/5
         [HttpDelete("{action}/{eventId}")]
         public async Task<IActionResult> DeleteEvent(int eventId)
@@ -65,7 +70,7 @@ namespace _3TierEventManagement.Controllers
 
             return Ok(new { message = "Event deleted successfully." });
         }
-
+        [Authorize]
         [HttpPut("{id}/publish")]
         public async Task<IActionResult> TogglePublishEvent(int id)
         {
@@ -148,6 +153,7 @@ namespace _3TierEventManagement.Controllers
             // Return the DTOs in the response
             return Ok(eventDTOs);
         }
+        [Authorize]
         [HttpPost("{eventId}/register")]
         public async Task<IActionResult> RegisterForEvent(int eventId, [FromBody] EventRegistrationDTO registrationDTO)
         {

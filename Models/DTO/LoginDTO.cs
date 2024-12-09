@@ -9,6 +9,7 @@ namespace EventManagementAPI.DTO
     }
     public class AuthenticationResponseDTO
     {
+        public string UserName { get; set; }
         public int UserId { get; set; }
         public int UserRoleId { get; set; }
         public string UserRole { get; set; }

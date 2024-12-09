@@ -54,7 +54,7 @@ namespace EventManagement.EventRegistrationFormRepository
 
             if (fields == null || fields.Count == 0)
             {
-                return null; // No fields found
+                return null; 
             }
 
             var fieldDTOs = new List<EventRegistrationFormsFieldDTO>();

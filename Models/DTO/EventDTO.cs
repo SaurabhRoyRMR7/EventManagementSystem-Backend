@@ -14,6 +14,7 @@ namespace EventManagementAPI.DTO
         public string Location { get; set; }
         public decimal Price { get; set; }
         public bool IsPublished { get; set; }
+  
     }
     public class CreateEventDTO
     {

@@ -2,6 +2,22 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "AutoMapper/13.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Options": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -43,6 +59,37 @@
         },
         "runtime": {
           "lib/netstandard2.0/Azure.Identity.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Authorization/9.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Metadata": "9.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Options": "9.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Metadata/9.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll": {
             "related": ".xml"
           }
         }
@@ -1014,6 +1061,21 @@
     }
   },
   "libraries": {
+    "AutoMapper/13.0.1": {
+      "sha512": "/Fx1SbJ16qS7dU4i604Sle+U9VLX+WSNVJggk6MupKVkYvvBm4XqYaeFuf67diHefHKHs50uQIS2YEDFhPCakQ==",
+      "type": "package",
+      "path": "automapper/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "automapper.13.0.1.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/net6.0/AutoMapper.dll",
+        "lib/net6.0/AutoMapper.xml"
+      ]
+    },
     "Azure.Core/1.38.0": {
       "sha512": "IuEgCoVA0ef7E4pQtpC3+TkPbzaoQfa77HlfJDmfuaJUCVJmn7fT0izamZiryW5sYUFKizsftIxMkXKbgIcPMQ==",
       "type": "package",
@@ -1050,6 +1112,44 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "Microsoft.AspNetCore.Authorization/9.0.0": {
+      "sha512": "qDJlBC5pUQ/3o6/C6Vuo9CGKtV5TAe5AdKeHvDR2bgmw8vwPxsAy3KG5eU0i1C+iAUNbmq+iDTbiKt16f9pRiA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authorization/9.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net462/Microsoft.AspNetCore.Authorization.dll",
+        "lib/net462/Microsoft.AspNetCore.Authorization.xml",
+        "lib/net9.0/Microsoft.AspNetCore.Authorization.dll",
+        "lib/net9.0/Microsoft.AspNetCore.Authorization.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.xml",
+        "microsoft.aspnetcore.authorization.9.0.0.nupkg.sha512",
+        "microsoft.aspnetcore.authorization.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Metadata/9.0.0": {
+      "sha512": "X81C891nMuWgzNHyZ0C3s+blSDxRHzQHDFYQoOKtFvFuxGq3BbkLbc5CfiCqIzA/sWIfz6u8sGBgwntQwBJWBw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.metadata/9.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net462/Microsoft.AspNetCore.Metadata.dll",
+        "lib/net462/Microsoft.AspNetCore.Metadata.xml",
+        "lib/net9.0/Microsoft.AspNetCore.Metadata.dll",
+        "lib/net9.0/Microsoft.AspNetCore.Metadata.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Metadata.xml",
+        "microsoft.aspnetcore.metadata.9.0.0.nupkg.sha512",
+        "microsoft.aspnetcore.metadata.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -2804,6 +2904,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "AutoMapper >= 13.0.1",
+      "Microsoft.AspNetCore.Authorization >= 9.0.0",
       "Microsoft.EntityFrameworkCore >= 9.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.0"
     ]
@@ -2853,6 +2955,14 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[13.0.1, )"
+          },
+          "Microsoft.AspNetCore.Authorization": {
+            "target": "Package",
+            "version": "[9.0.0, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[9.0.0, )"

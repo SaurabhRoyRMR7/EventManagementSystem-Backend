@@ -17,3 +17,4 @@ C:\Users\saurabh.roy\source\repos\3TierEventManagement\BusinessLayer\obj\Debug\n
 C:\Users\saurabh.roy\source\repos\3TierEventManagement\BusinessLayer\obj\Debug\net8.0\ref\BusinessLayer.dll
 C:\Users\saurabh.roy\source\repos\3TierEventManagement\BusinessLayer\bin\Debug\net8.0\BusinessLayer.runtimeconfig.json
 C:\Users\saurabh.roy\source\repos\3TierEventManagement\BusinessLayer\obj\Debug\net8.0\BusinessLayer.genruntimeconfig.cache
+C:\Users\saurabh.roy\source\repos\3TierEventManagement\BusinessLayer\obj\Debug\net8.0\BusinessLayer.sourcelink.json

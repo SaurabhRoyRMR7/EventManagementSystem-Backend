@@ -13,3 +13,4 @@ C:\Users\saurabh.roy\source\repos\3TierEventManagement\DataAccessLayer\obj\Debug
 C:\Users\saurabh.roy\source\repos\3TierEventManagement\DataAccessLayer\obj\Debug\net8.0\refint\DataAccessLayer.dll
 C:\Users\saurabh.roy\source\repos\3TierEventManagement\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.pdb
 C:\Users\saurabh.roy\source\repos\3TierEventManagement\DataAccessLayer\obj\Debug\net8.0\ref\DataAccessLayer.dll
+C:\Users\saurabh.roy\source\repos\3TierEventManagement\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.sourcelink.json

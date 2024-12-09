@@ -6,21 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace EventManagement.EventRepository
 {
     public class EventRepositoryType : IEventRepository
     {
         private readonly EventManagementSystemDataBaseContext _context;
-
-        public EventRepositoryType(EventManagementSystemDataBaseContext context)
+        private readonly IMapper _mapper;
+        public EventRepositoryType(EventManagementSystemDataBaseContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
-
+        
         public async Task<EventDTO> CreateEventAsync(CreateEventDTO createEventDTO)
         {
-
+            Console.WriteLine("I am in create event");
             var organizerExists = await _context.Organizers
                 .AnyAsync(o => o.OrganizerId == createEventDTO.OrganizerId);
 
@@ -28,6 +30,7 @@ namespace EventManagement.EventRepository
             {
                 throw new ArgumentException("Organizer not found");
             }
+            //var eventEntity = _mapper.Map<Event>(createEventDTO);
 
             var eventEntity = new Event
             {
@@ -64,6 +67,8 @@ namespace EventManagement.EventRepository
                         LastModifiedAt = DateTime.Now,
                         LastModifiedBy = "System"
                     };
+                    //var formFieldEntity = _mapper.Map<EventRegistrationFormsField>(field);
+                    formFieldEntity.EventId = eventEntity.EventId;
 
                     _context.EventRegistrationFormsFields.Add(formFieldEntity);
                     await _context.SaveChangesAsync(); // Save the field
@@ -105,8 +110,8 @@ namespace EventManagement.EventRepository
                 await _context.SaveChangesAsync();
             }
 
-            // Return the created event as EventDTO
-            var eventDTO = new EventDTO
+            //Return the created event as EventDTO
+           var eventDTO = new EventDTO
             {
                 EventId = eventEntity.EventId,
                 OrganizerId = eventEntity.OrganizerId,
@@ -116,8 +121,9 @@ namespace EventManagement.EventRepository
                 EndDate = eventEntity.EndDate,
                 Location = eventEntity.Location,
                 Price = eventEntity.Price,
-                IsPublished = (bool)eventEntity.IsPublished
+                IsPublished = (bool) eventEntity.IsPublished
             };
+            
 
             return eventDTO;
         }
@@ -144,19 +150,19 @@ namespace EventManagement.EventRepository
         //    throw new NotImplementedException();
         //}
 
-        public async Task<Event> GetEventByIdAsync(int id)
+        public async Task<EventDTO> GetEventByIdAsync(int id)
         {
             // Find the event by id
             var eventItem = await _context.Events.FindAsync(id);
 
-            // If event is not found, return null (you can handle this in the controller)
+           
             if (eventItem == null)
             {
                 return null;
             }
 
-            // Map the Event entity to EventDTO
-            var eventDTO = new Event
+            //Map the Event entity to EventDTO
+            var eventDTO = new EventDTO
             {
                 EventId = eventItem.EventId,
                 OrganizerId = eventItem.OrganizerId,
@@ -168,6 +174,7 @@ namespace EventManagement.EventRepository
                 Price = eventItem.Price,
                 IsPublished = (bool)eventItem.IsPublished
             };
+            //var eventDTO = _mapper.Map<EventDTO>(eventItem);
 
             return eventDTO;
         }
@@ -256,7 +263,7 @@ namespace EventManagement.EventRepository
 
       
 
-        public async Task<List<Event>> GetUpcomingEventsAsync()
+        public async Task<List<EventDTO>> GetUpcomingEventsAsync()
         {
             
             var upcomingEvents = await _context.Events
@@ -264,7 +271,7 @@ namespace EventManagement.EventRepository
                 .OrderBy(e => e.StartDate)
                 .ToListAsync();
 
-            var eventDTOs = upcomingEvents.Select(e => new Event
+            var eventDTOs = upcomingEvents.Select(e => new EventDTO
             {
                 EventId = e.EventId,
                 Title = e.Title,

@@ -1,7 +1,9 @@
 ﻿//using EventManagement.UserRepository;
+using EventManagement.Services;
 using EventManagement.UserService;
 using EventManagementAPI.DTO;
 using EventManagementAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,11 +18,13 @@ namespace _3TierEventManagement.Controllers
 
         //private readonly IUserRepository _userRepository;
         private readonly IUserService _userService;
+        private readonly IJwtService _jwtService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IJwtService jwtService)
         {
             //_userRepository = userRepository;
             _userService = userService;
+            _jwtService = jwtService;
         }
 
         [HttpPost("register")]
@@ -58,10 +62,12 @@ namespace _3TierEventManagement.Controllers
             {
                 return Unauthorized("Invalid email or password.");
             }
+            var token = _jwtService.GenerateToken(response);
 
-          
-          
-            return Ok(response);
+            return Ok(new { Response=response, Token = token });
+
+
+            //return Ok(response);
         }
         [HttpGet("organizerId/{userId}")]
         public async Task<ActionResult<int>> GetOrganizerIdByUserId(int userId)
@@ -75,6 +81,7 @@ namespace _3TierEventManagement.Controllers
 
             return Ok(organizerId);
         }
+        [Authorize]
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers()
         {
@@ -83,6 +90,7 @@ namespace _3TierEventManagement.Controllers
 
             return Ok(users);
         }
+        [Authorize]
         [HttpPut("user/{action}/{userId}")]
         public async Task<IActionResult> UpdateUserRole(int userId, [FromBody] UpdateUserRoleDTO updateUserRoleDTO)
         {
