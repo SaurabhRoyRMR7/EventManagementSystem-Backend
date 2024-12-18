@@ -81,7 +81,7 @@ namespace _3TierEventManagement.Controllers
 
             return Ok(organizerId);
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers()
         {

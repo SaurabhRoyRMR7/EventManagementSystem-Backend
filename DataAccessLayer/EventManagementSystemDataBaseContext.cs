@@ -32,6 +32,8 @@ public partial class EventManagementSystemDataBaseContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserRole> UserRoles { get; set; }
+    //public virtual DbSet<Message> Messages { get; set; }
+    //public virtual DbSet<ChatRoom> ChatRooms { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -229,6 +231,41 @@ public partial class EventManagementSystemDataBaseContext : DbContext
             entity.Property(e => e.UserRoleId).HasColumnName("UserRoleID");
             entity.Property(e => e.RoleName).HasMaxLength(50);
         });
+        //modelBuilder.Entity<Message>(entity =>
+        //{
+        //    entity.HasKey(m => m.MessageId);
+
+        //    // Configure SenderId (user who sent the message)
+        //    entity.HasOne(m => m.Sender)
+        //          .WithMany() // No need to have a collection in User for messages
+        //          .HasForeignKey(m => m.SenderId)
+        //          .OnDelete(DeleteBehavior.ClientSetNull)
+        //          .HasConstraintName("FK_Message_Sender");
+
+        //    // Configure ChatRoomId (chat room where the message belongs)
+        //    entity.HasOne(m => m.ChatRoom)
+        //          .WithMany(c => c.Messages)
+        //          .HasForeignKey(m => m.ChatRoomId)
+        //          .OnDelete(DeleteBehavior.Cascade)
+        //          .HasConstraintName("FK_Message_ChatRoom");
+
+        //    entity.Property(m => m.Content).HasMaxLength(1000); // Limit for message content
+        //    entity.Property(m => m.Timestamp).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
+        //});
+
+        //modelBuilder.Entity<ChatRoom>(entity =>
+        //{
+        //    entity.HasKey(c => c.ChatRoomId);
+
+        //    // Configure relationship to Event
+        //    entity.HasOne(c => c.Event)
+        //          .WithMany() // Assuming Event can have many chat rooms (one-to-many relationship)
+        //          .HasForeignKey(c => c.EventId)
+        //          .OnDelete(DeleteBehavior.Cascade)
+        //          .HasConstraintName("FK_ChatRoom_Event");
+
+        //    entity.Property(c => c.Name).HasMaxLength(255);
+        //});
 
         OnModelCreatingPartial(modelBuilder);
     }

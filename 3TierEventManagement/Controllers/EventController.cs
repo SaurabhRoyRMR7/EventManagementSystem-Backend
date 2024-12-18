@@ -153,7 +153,7 @@ namespace _3TierEventManagement.Controllers
             // Return the DTOs in the response
             return Ok(eventDTOs);
         }
-        [Authorize]
+        //[Authorize]
         [HttpPost("{eventId}/register")]
         public async Task<IActionResult> RegisterForEvent(int eventId, [FromBody] EventRegistrationDTO registrationDTO)
         {
@@ -206,6 +206,26 @@ namespace _3TierEventManagement.Controllers
             }
 
             return Ok(participants);  
+        }
+        [HttpGet("{eventId}/publish-status")]
+        public async Task<IActionResult> GetPublishStatus(int eventId)
+        {
+            try
+            {
+                var isPublished = await _eventService.GetPublishStatusAsync(eventId);
+
+                if (isPublished == null)
+                {
+                    return NotFound(new { message = "Event not found" });
+                }
+
+                return Ok(new { isPublished });
+            }
+            catch (Exception ex)
+            {
+                // Handle any unexpected errors
+                return StatusCode(500, new { message = "An error occurred while retrieving the publish status", error = ex.Message });
+            }
         }
 
 

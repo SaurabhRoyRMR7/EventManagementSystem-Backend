@@ -1,6 +1,7 @@
 ﻿using EventManagement.EventRepository;
 using EventManagementAPI.DTO;
 using EventManagementAPI.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -175,17 +176,7 @@ namespace EventManagement.EventService
                 throw new ArgumentException("No upcoming events found.");
             }
 
-            return upcomingEvents.Select(e => new EventDTO
-            {
-                EventId = e.EventId,
-                Title = e.Title,
-                Description = e.Description,
-                StartDate = e.StartDate,
-                EndDate = e.EndDate,
-                Location = e.Location,
-                Price = e.Price,
-                IsPublished = (bool)e.IsPublished
-            }).ToList();
+            return upcomingEvents;
         }
 
         public async Task<bool> TogglePublishEventAsync(int eventId)
@@ -243,6 +234,10 @@ namespace EventManagement.EventService
         public async Task<bool> IsUserRegisteredForEventAsync(int eventId, int userId)
         {
             return await _eventRepository.IsUserRegisteredForEventAsync(eventId, userId);
+        }
+        public async Task<bool?> GetPublishStatusAsync(int eventId)
+        {
+            return await _eventRepository.GetPublishStatusAsync(eventId);
         }
     }
 }

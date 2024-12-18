@@ -27,6 +27,7 @@ namespace EventManagement.EventRepository
         Task<List<ParticipantDTO>> GetEventParticipantsAsync(int eventId);
         Task<bool> IsUserRegisteredForEventAsync(int eventId, int userId);
         Task<bool> IsOrganizerExistsAsync(int organizerId);
+        Task<bool?> GetPublishStatusAsync(int eventId);
     }
 
 }

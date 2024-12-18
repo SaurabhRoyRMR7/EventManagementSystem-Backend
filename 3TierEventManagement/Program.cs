@@ -37,6 +37,7 @@ namespace _3TierEventManagement
        {
            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
        });
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngularApp", policy =>
@@ -45,6 +46,18 @@ namespace _3TierEventManagement
                           .AllowAnyHeader()                      // Allow any headers
                           .AllowAnyMethod();                     // Allow any HTTP methods (GET, POST, etc.)
                 });
+            });
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowReactApp",
+                    policy => {
+                        policy.WithOrigins("http://localhost:3000")
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
+                                    
+                                    });
+                                    
             });
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -65,16 +78,7 @@ namespace _3TierEventManagement
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-            //Log.Logger = new LoggerConfiguration()
-            //   .ReadFrom.Configuration(builder.Configuration)
-            //   .WriteTo.Console()
-            //   .WriteTo.File("logs/MyAppLog.txt")
-            //   .CreateLogger();
-            //// Set Serilog as the logging provider
-            //// This will also replace default logging provider with Serilog
-            //builder.Host.UseSerilog();
-            //builder.Services.AddDbContext<EventManagementSystemDataBaseContext>(options =>
-            //options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
+           
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             var app = builder.Build();
@@ -91,7 +95,8 @@ namespace _3TierEventManagement
             app.UseAuthorization();
           
 
-            app.UseCors("AllowAngularApp");
+            //app.UseCors("AllowAngularApp");
+            app.UseCors("AllowReactApp");
             app.MapControllers();
 
             app.Run();

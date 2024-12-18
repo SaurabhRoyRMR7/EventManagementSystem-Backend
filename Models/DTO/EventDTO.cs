@@ -43,6 +43,7 @@ namespace EventManagementAPI.DTO
         public int RegistrationId { get; set; }
         public int EventId { get; set; }
         public int UserId { get; set; }
+        public decimal? Price { get; set; }
 
         public string RegistrationCode { get; set; }
         public DateTime? RegistrationDate { get; set; }

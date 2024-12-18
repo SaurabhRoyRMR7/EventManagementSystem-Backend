@@ -21,5 +21,6 @@ namespace EventManagement.EventService
         Task<string> RegisterForEventAsync(int eventId, EventRegistrationDTO registrationDTO);
         Task<string> UnregisterFromEventAsync(int eventId, EventUnRegistrationDTO unregistrationDTO);
         Task<bool> IsUserRegisteredForEventAsync(int eventId, int userId);
+        Task<bool?> GetPublishStatusAsync(int eventId);
     }
 }

@@ -69,6 +69,22 @@
   },
   {
     "ContainingType": "_3TierEventManagement.Controllers.EventController",
+    "Method": "GetPublishStatus",
+    "RelativePath": "api/Event/{eventId}/publish-status",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "eventId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "_3TierEventManagement.Controllers.EventController",
     "Method": "RegisterForEvent",
     "RelativePath": "api/Event/{eventId}/register",
     "HttpMethod": "POST",

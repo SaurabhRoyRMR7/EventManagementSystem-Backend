@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using EventManagementAPI.Models;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 
 

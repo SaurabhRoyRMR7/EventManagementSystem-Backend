@@ -318,7 +318,7 @@ namespace EventManagement.EventRepository
                 throw new ArgumentException("Event not found");
             }
 
-           
+
             var registration = new EventRegistration
             {
                 EventId = eventId,
@@ -358,10 +358,122 @@ namespace EventManagement.EventRepository
                 _context.EventRegistrationResponses.Add(registrationResponse);
             }
 
+            int registrationId = registration.RegistrationId;
+
+
             await _context.SaveChangesAsync();
+
+            //var payment = new Payment
+            //{
+            //    RegistrationId = registrationId,
+            //    Amount = (decimal)registrationDTO.Price, // Assuming you have the payment amount in your DTO
+            //    PaymentStatus = "Pending", // Initial status
+            //    CreatedAt = DateTime.Now
+            //};
+
+            //_context.Payments.Add(payment);
+            //await _context.SaveChangesAsync();
 
             return "Registration successful!";
         }
+
+        //public async Task<string> RegisterForEventAsync(int eventId, EventRegistrationDTO registrationDTO)
+        //{
+        //    var eventEntity = await _context.Events
+        //        .Include(e => e.EventRegistrationFormsFields)
+        //        .FirstOrDefaultAsync(e => e.EventId == eventId);
+
+        //    if (eventEntity == null)
+        //    {
+        //        throw new ArgumentException("Event not found");
+        //    }
+
+        //    // Step 1: Initiate Payment
+        //    var payment = new Payment
+        //    {
+        //        RegistrationId = 0, // Registration ID will be assigned later after successful payment
+        //        Amount = (decimal)registrationDTO.Price, // Assuming the amount is passed in the DTO
+        //        PaymentStatus = "Pending",
+        //        CreatedAt = DateTime.Now
+        //    };
+
+        //    _context.Payments.Add(payment);
+        //    await _context.SaveChangesAsync();
+
+        //    // Step 2: Payment Logic (simulate payment success here, ideally from payment gateway)
+        //    var paymentResponse = await SimulatePaymentGateway(payment); // You need to replace with actual payment gateway call
+
+        //    if (paymentResponse.Status == "success")
+        //    {
+        //        // Step 3: Create Registration after Payment
+        //        var registration = new EventRegistration
+        //        {
+        //            EventId = eventId,
+        //            UserId = registrationDTO.UserId,
+        //            RegistrationDate = DateTime.Now,
+        //            RegistrationCode = registrationDTO.RegistrationCode,
+        //            CreatedAt = DateTime.Now,
+        //            CreatedBy = "System",
+        //            LastModifiedAt = DateTime.Now,
+        //            LastModifiedBy = "System",
+        //            PaymentStatus = "Paid"
+        //        };
+
+        //        _context.EventRegistrations.Add(registration);
+        //        await _context.SaveChangesAsync();
+
+        //        // Step 4: Update the Payment with RegistrationId
+        //        payment.RegistrationId = registration.RegistrationId;
+        //        payment.PaymentStatus = "Success"; // Update the payment status as successful after payment verification
+        //        _context.Payments.Update(payment);
+        //        await _context.SaveChangesAsync();
+
+        //        // Step 5: Save registration responses
+        //        foreach (var response in registrationDTO.RegistrationResponses)
+        //        {
+        //            var eventField = eventEntity.EventRegistrationFormsFields
+        //                .FirstOrDefault(f => f.FormFieldId == response.FieldId);
+        //            if (eventField == null)
+        //            {
+        //                continue;
+        //            }
+
+        //            var registrationResponse = new EventRegistrationResponse
+        //            {
+        //                RegistrationId = registration.RegistrationId,
+        //                FormFieldId = response.FieldId,
+        //                ResponseValue = response.ResponseValue,
+        //                CreatedAt = DateTime.Now,
+        //                CreatedBy = "System",
+        //                LastModifiedAt = DateTime.Now,
+        //                LastModifiedBy = "System",
+        //            };
+
+        //            _context.EventRegistrationResponses.Add(registrationResponse);
+        //        }
+
+        //        await _context.SaveChangesAsync();
+
+        //        return "Registration successful!";
+        //    }
+        //    else
+        //    {
+        //        // Payment failed, handle the failure case
+        //        payment.PaymentStatus = "Failed";
+        //        _context.Payments.Update(payment);
+        //        await _context.SaveChangesAsync();
+
+        //        return "Payment failed, please try again!";
+        //    }
+        //}
+
+        private async Task<PaymentResponse> SimulatePaymentGateway(Payment payment)
+        {
+            // Simulate payment success/failure. Replace this with your actual payment gateway integration.
+            await Task.Delay(1000); // Simulate some delay
+            return new PaymentResponse { Status = "success", PaymentId = "payment123" }; // Simulate successful payment
+        }
+
 
         public async Task<string> UnregisterFromEventAsync(int eventId, EventUnRegistrationDTO unregistrationDTO)
         {
@@ -408,6 +520,19 @@ namespace EventManagement.EventRepository
             }
 
             return true;
+        }
+        public async Task<bool?> GetPublishStatusAsync(int eventId)
+        {
+            var eventEntity = await _context.Events
+                .Where(e => e.EventId == eventId)
+                .FirstOrDefaultAsync();
+
+            if (eventEntity == null)
+            {
+                return null; // Event not found
+            }
+
+            return eventEntity.IsPublished;
         }
     }
 }
